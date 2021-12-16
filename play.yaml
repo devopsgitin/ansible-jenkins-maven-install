@@ -1,0 +1,21 @@
+---
+  - hosts: all
+    become: yes
+    tasks:
+      - name: Copy Jenkins Install Script
+        copy:
+          src: jenkins_install.sh
+          dest: /home/ubuntu/jenkins_install.sh
+        when: inventory_hostname == "jenkins"
+      - name: Installing Jenkins
+        shell: bash /home/ubuntu/jenkins_install.sh
+        when: inventory_hostname == "jenkins"
+      
+      - name: Copy Maven Install Script
+        copy:
+          src: maven_install.sh
+          dest: /home/ubuntu/maven_install.sh
+        when: inventory_hostname == "maven"
+      - name: Installing Maven
+        shell: bash /home/ubuntu/maven_install.sh
+        when: inventory_hostname == "maven"
